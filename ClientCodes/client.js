@@ -77,9 +77,9 @@ function sepete_tasi() {
 
 function sepete_eklenenler_fonksiyonu() {
   var sepete_eklenenler_div = document.getElementById('sepete_eklenenler_div');
-  sepete_eklenenler_div.innerHTML = ""; // İlk önce içeriği temizleyelim
+  sepete_eklenenler_div.innerHTML = "";
 
-  // sepetteki_urunler, bir nesne olduğu için Object.keys() ile anahtarları alıyoruz.
+  // sepetteki_urunler, bir nesne olduğu için Object.keys() ile anahtarları alıyoz
   var urunlerinAnahtarları = Object.keys(sepetteki_urunler);
 
   for (let a = 0; a < urunlerinAnahtarları.length; a++) {
@@ -136,13 +136,13 @@ for (let i = 0; i < kategori_adlari.length; i++) {
   }
 }
 
-let kategoriler = []; // Boş bir dizi oluşturuyoruz
+let kategoriler = [];
 
 for (let i = 1; i <= 4; i++) {
   kategoriler.push("kategori" + i);
 }
 
-for (let k = 2; k <= 4; k++) { // İlk kategoriyi görüntüledikten sonra diğerlerini gezin (k = 2'den başlıyor)
+for (let k = 2; k <= 4; k++) {
   let kategoriler_index = kategoriler[k - 1];
   document.getElementsByClassName(`${kategoriler_index}`)[0].style.display = "none";
 }
@@ -155,15 +155,11 @@ for (let m = 0; m < kategoriler_id.length; m++) {
   let kategoriElement_class = document.getElementsByClassName(kategoriler_id[m])[0];
   document.getElementsByClassName(kategoriler_id[0])[0].style.display = "block";
 
-  // Tüm kategori öğelerini başlangıçta "display: none" yapalım
   kategoriElement_class.style.display = "none";
 
-  // Her bir öğeye click olayı ekleyelim
   kategoriElement_id.addEventListener("click", function () {
-    // Tüm kategori öğelerini dolaşalım
     for (let i = 0; i < kategoriler_id.length; i++) {
       let kategori = document.getElementsByClassName(kategoriler_id[i])[0];
-      // Tıklanan öğe ise "display: block", diğerleri "display: none" yapalım
       if (i === m) {
         kategori.style.display = "block";
       } else {
@@ -188,7 +184,7 @@ function sepeteEkle(urunId) {
   const urunElement = document.getElementById(`urun_no${urunId}`);
   urunElement.innerText = sepetSayisi.toString();
 
-  sepete_eklenenler_fonksiyonu(); // Sepetteki ürünler görselini güncelle
+  sepete_eklenenler_fonksiyonu();
 }
 
 function sepettenCikar(urunId) {
@@ -206,12 +202,12 @@ function sepettenCikar(urunId) {
     delete sepet[urunId];
   }
 
-  sepete_eklenenler_fonksiyonu(); // Sepetteki ürünler görselini güncelle
+  sepete_eklenenler_fonksiyonu();
 }
 
 
 function siparis_onayla_butonu() {
-  sepetteki_urunler = {}; // Önceki verileri temizlemeye gerek yok, çünkü nesne kullanacağız.
+  sepetteki_urunler = {};
 
   for (let i = 1; i <= 15; i++) {
     let urunNo = parseInt(document.getElementById(`urun_no${i}`).innerText);
