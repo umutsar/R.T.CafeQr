@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Lugrasimo&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+#navbar {
+    position: sticky;
+    width: 100%;
+    background-color: #A1CCD1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 10vh;
+    margin: 0;
+    padding: 0;
+    border-radius: 5px;
+    top: 0;
+}
+
+#navbar div {
+    margin: 0 16px;
+    font-size: 24px;
+}
+
+#navbar button {
+    padding: 0;
+}
+
+#sepet-resmi:active {
+    color: red;
+}
+
+#sepet-resmi img {
+    width: 32px;
+    height: 32px;
+}
+
+#geri-resmi {
+    display: none;
+}
+
+#geri-resmi img {
+    width: 24px;
+    height: 24px;
+}
+
+/* .kategori {
+    display: none;
+} */
+
+#kategoriler {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 8px;
+    height: 15vh;
+    background-color: #E9B384;
+    overflow-x: auto;
+}
+
+#kategoriler > div{
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#kategoriler  div{
+    font-family: 'Lugrasimo', cursive;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.kategori-menusu div {
+    margin-top: 0;
+}
+
+#kategoriler img {
+    display: inline-block;
+    width: 24vw;
+    height: 10vh;
+    border-radius: 20px;
+    margin-right: 4px;
+    margin-left: 4px;
+}
+
+#kategoriler img + div{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* sepet-resmik İçeriği Ekranı Buraya Gelecek */
+
+#siparis-secenekleri {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#masa-select {
+    margin-top: 20px;
+    width: 40vw;
+    height: 30px;
+}
+
+#siparisi_onayla_butonu {
+    height: 25px;
+    width: 30vw;
+}
+
+#siparis-secenekleri  div div {
+    margin-top: 30px;
+}
+
+#siparis-secenekleri  div button {
+    margin-top: 8px;
+}
+
+#sepete_eklenenler_div {
+    background-color: aqua;
+    width: 100vw;
+    height: auto;
+}
+
+h2 {
+    margin-left: 10px;
+}
