@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kafe Kasa Layout</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .masa {
+            width: 300px;
+            height: 500px;
+            background-color: yellow;
+            border: 2px solid black;
+            margin: 5px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .masa-container {
+            margin-top: calc(100% - 900px);
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 100%;
+        }
+
+        h2 {
+            margin-left: 120px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="tablolar">
+        <div class="masa-container">
+            <div class="masa">
+                <div id="A1">
+                    <h2>A1</h2>
+                </div>
+            </div>
+            <div class="masa">
+                <div id="A2">
+                    <h2>A2</h2>
+                </div>
+            </div>
+            <div class="masa">
+                <div id="A3">
+                    <h2>A3</h2>
+                </div>
+            </div>
+            <div class="masa">
+                <div id="A4">
+                    <h2>A4</h2>
+                </div>
+            </div>
+            <div class="masa">
+                <div id="A5">
+                    <h2>A5</h2>
+                </div>
+            </div>
+            <div class="masa">
+                <div id="A6">
+                    <h2>A6</h2>
+                </div>
+            </div>
+            <div class="masa">
+                <div id="A7">
+                    <h2>A7</h2>
+                </div>
+            </div>
+            <div class="masa">
+                <div id="A8">
+                    <h2>A8</h2>
+                </div>
+            </div>
+            <div class="masa">
+                <div id="A9">
+                    <h2>A9</h2>
+                </div>
+            </div>
+            <div class="masa">
+                <div id="A10">
+                    <h2>A10</h2>
+                </div>
+            </div>
+            <div class="masa">
+                <div id="A11">
+                    <h2>A11</h2>
+                </div>
+            </div>
+            <div class="masa">
+                <div id="A12">
+                    <h2>A12</h2>
+                </div>
+            </div>
+            <div class="masa">
+                <div id="A13">
+                    <h2>A13</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let urun_adlari = [
+            ['Serpme Kahvaltı', 'Van Kahvaltısı', 'Menemen'],
+            ['Mercimek Çorbası', 'Tarhana Çorbası', 'Domates Çorbası', 'Şehriyeli Çorba'],
+            ['Filtre Kahve', 'Latte', 'Kola', 'Fanta', 'Soda'],
+            ['Sucuklu Tost', 'Kaşarlı Tost', 'Karışık Tost']
+        ]
+        let fiyatlar = [
+            ['34', '29', '22'],
+            ['42', '19', '23', '26'],
+            ['10', '50', '30', '49', '18'],
+            ['39', '33', '26']
+        ];
+        fiyatlar_flat = fiyatlar.flat();
+        var urun_adlari_new = urun_adlari.flat();
+        console.log(urun_adlari_new)
+
+        var socket = new WebSocket('ws://10.100.2.248:5556/');
+
+        socket.onmessage = function (event) {
+            try {
+                var data = event.data.split(': '); // Gelen mesajı ":" karakterine göre ikiye bölelim.
+                var ip_info = data[0]; // İlk parça IP ve port bilgisini içerir.
+                var recieve_object = JSON.parse(data[1]); // İkinci parça JSON verisini içerir.
+                var keys = Object.keys(recieve_object);
+                var values = Object.values(recieve_object);
+                var table_number = recieve_object.table_number;
+                console.log(ip_info);
+                console.log(table_number);
+
+                var suAnkiZaman = new Date();
+
+                // Saat bilgisini almak için getHours() ve dakika bilgisini almak için getMinutes() metodlarını kullanın
+                var saat = suAnkiZaman.getHours();
+                var dakika = suAnkiZaman.getMinutes();
+
+                // Saat ve dakikayı yan yana yazdırmak için string ifadeleri birleştirin
+                var saatVeDakika = saat.toString().padStart(2, '0') + ':' + dakika.toString().padStart(2, '0');
+                console.log("Saat Bilgisi: ", saatVeDakika);
+
+
+                var sub_html = ``;
+                for (let i = 0; i < keys.length - 1; i++) {
+                    var masa_no_al_htmlden = document.getElementById(table_number);
+                    var ilk_eleman_value = values[i];
+                    var ilk_eleman_key = keys[i];
+
+                    var urun_fiyati = fiyatlar_flat[ilk_eleman_key - 1]
+                    var bir_urunun_toplam_fiyati = `${urun_fiyati} x ${ilk_eleman_value}`
+
+                    sub_html += `<div>--|${urun_adlari_new[ilk_eleman_key - 1]} x ${ilk_eleman_value}| ${saatVeDakika}<br>
+                        ${bir_urunun_toplam_fiyati} = ${urun_fiyati * ilk_eleman_value}
+                        </div>`
+                }
+                masa_no_al_htmlden.innerHTML += ' ' + sub_html;
+
+                function total_price() {
+
+                }
+
+                // Mevcut içeriği değiştirmeden yeni içeriği sonuna eklemek için innerHTML kullanın.
+
+            } catch (error) {
+                console.error("Hata: Sunucudan gelen veri uygun bir JSON formatına sahip değil.", error);
+            }
+        };
+    </script>
+</body>
+
+</html>
